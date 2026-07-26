@@ -6,11 +6,11 @@ export const typeOrmConfig: DataSourceOptions = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false, // Required for NeonDB
+    rejectUnauthorized: false,
   },
   entities: [__dirname + '/../database/entities/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
-  synchronize: false, // NEVER true once migrations start — prevents conflicts
+  synchronize: false,
   logging: process.env.NODE_ENV === 'development',
 };
 
