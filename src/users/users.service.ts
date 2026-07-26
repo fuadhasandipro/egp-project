@@ -23,7 +23,7 @@ export class UsersService {
     @InjectRepository(Profile)
     private profileRepo: Repository<Profile>,
     private mailerService: MailerService,
-  ) {}
+  ) { }
 
   async getProfile(userId: string) {
     const user = await this.userRepo.findOne({
@@ -48,7 +48,7 @@ export class UsersService {
     }
 
     const role = await this.roleRepo.findOne({
-      where: { id: dto.roleId },
+      where: { name: dto.roleName as any },
     });
 
     if (!role) {

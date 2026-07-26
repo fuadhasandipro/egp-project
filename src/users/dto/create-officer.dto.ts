@@ -5,7 +5,7 @@ export class CreateOfficerDto {
   email: string;
 
   @IsString()
-  roleId: string;
+  roleName: string;
 
   @IsString()
   @IsOptional()
