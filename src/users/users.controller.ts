@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Request, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateOfficerDto } from './dto/create-officer.dto';
 import { Roles } from '../common/decorators/roles.decorator';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Controller('api')
 export class UsersController {
@@ -17,4 +18,11 @@ export class UsersController {
   createOfficer(@Body() dto: CreateOfficerDto) {
     return this.usersService.createOfficer(dto);
   }
+
+  @Roles('admin')
+  @Get('admin/users')
+  findAllUsers(@Query() query: PaginationQueryDto & { role?: string; status?: string }) {
+    return this.usersService.findAllUsers(query);
+  }
+
 }
