@@ -50,12 +50,12 @@ export class QueryComplaintsDto extends PaginationQueryDto {
   @IsOptional()
   @IsString()
   @IsIn(['Low', 'Medium', 'High'])
-  severity: string;
+  severity?: string;
 
   // FILTER: only complaints of this status.
   @ApiPropertyOptional({ enum: ['Open', 'Escalated', 'Resolved'] })
   @IsOptional()
   @IsString()
   @IsIn(['Open', 'Escalated', 'Resolved'])
-  status: string;
+ status?: string;
 }
