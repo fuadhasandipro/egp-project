@@ -1,8 +1,10 @@
+import * as bcrypt from 'bcrypt';
+import * as dotenv from 'dotenv';
+
 import AppDataSource from '../config/typeorm.config';
 import { Role } from '../database/entities/role.entity';
 import { User } from '../database/entities/user.entity';
-import * as bcrypt from 'bcrypt';
-import * as dotenv from 'dotenv';
+
 dotenv.config();
 
 async function seed() {

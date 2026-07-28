@@ -1,16 +1,19 @@
-import { Module, MiddlewareConsumer } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
-import { typeOrmConfig } from './config/typeorm.config';
-import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { AttendanceModule } from './attendance/attendance.module';
 import { AuthModule } from './auth/auth.module';
+import { RolesGuard } from './common/guards/roles.guard';
+import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { typeOrmConfig } from './config/typeorm.config';
+import { InspectionsModule } from './inspections/inspections.module';
+import { InstitutionsModule } from './institutions/institutions.module';
+import { TicketsModule } from './tickets/tickets.module';
 import { UsersModule } from './users/users.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { RolesGuard } from './common/guards/roles.guard';
-import { TicketsModule } from './tickets/tickets.module';
-import { InstitutionsModule } from './institutions/institutions.module';
 
 @Module({
   imports: [
@@ -28,6 +31,8 @@ import { InstitutionsModule } from './institutions/institutions.module';
     }),
     AuthModule,
     UsersModule,
+    AttendanceModule,
+    InspectionsModule,
     TicketsModule,
     InstitutionsModule,
   ],
