@@ -7,6 +7,7 @@ import { typeOrmConfig } from './config/typeorm.config';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { InspectionsModule } from './inspections/inspections.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 
@@ -26,6 +27,7 @@ import { RolesGuard } from './common/guards/roles.guard';
     }),
     AuthModule,
     UsersModule,
+    InspectionsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: JwtAuthGuard },
