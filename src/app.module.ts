@@ -10,6 +10,8 @@ import { UsersModule } from './users/users.module';
 import { InspectionsModule } from './inspections/inspections.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { RolesGuard } from './common/guards/roles.guard';
+import { TicketsModule } from './tickets/tickets.module';
+import { InstitutionsModule } from './institutions/institutions.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { RolesGuard } from './common/guards/roles.guard';
     AuthModule,
     UsersModule,
     InspectionsModule,
+    TicketsModule,
+    InstitutionsModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: JwtAuthGuard },
