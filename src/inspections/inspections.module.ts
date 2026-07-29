@@ -22,7 +22,11 @@ import { InspectionsService } from './inspections.service';
       User,
     ]),
   ],
-  controllers: [InspectionsController, StudentStatsController, TrainingController],
+  controllers: [
+    InspectionsController,
+    StudentStatsController,
+    TrainingController,
+  ],
   providers: [InspectionsService],
 })
 export class InspectionsModule {}
