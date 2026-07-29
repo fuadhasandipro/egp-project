@@ -51,3 +51,7 @@ Thumbs.db
 .env
 .env.test
 .env.production
+
+# personal notes (not for team)
+notes-*.md
+MEMO_MOZAHID.md
