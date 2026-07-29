@@ -27,7 +27,7 @@ export class InspectionsService {
     private trainingProgramRepo: Repository<TrainingProgram>,
     @InjectRepository(User)
     private userRepo: Repository<User>,
-  ) {}
+  ) { }
 
   async create(dto: CreateInspectionDto, inspectorId: string) {
     const inspection = this.inspectionRepo.create({
@@ -43,8 +43,7 @@ export class InspectionsService {
   async findAll(query: QueryInspectionDto, currentUser: any) {
     const qb = this.inspectionRepo.createQueryBuilder('inspection');
 
-    // Head Teacher শুধু নিজের institution এর inspection দেখবে, admin সব দেখবে
-    // Note: JWT token এ institutionId থাকে না, তাই database থেকে নিজে খুঁজে আনছি
+
     if (currentUser.role.name === 'head_teacher') {
       const user = await this.userRepo.findOne({
         where: { id: currentUser.id },
@@ -72,7 +71,7 @@ export class InspectionsService {
     return paginate(qb, query, 'inspection');
   }
 
-  // ---- Student Stats CRUD ----
+
 
   async createStudentStat(dto: CreateStudentStatDto) {
     const stat = this.studentStatRepo.create(dto);
@@ -102,7 +101,6 @@ export class InspectionsService {
     return this.studentStatRepo.remove(stat);
   }
 
-  // ---- Training Assign ----
 
   async assignTraining(dto: AssignTrainingDto) {
     const teacher = await this.userRepo.findOne({ where: { id: dto.userId } });

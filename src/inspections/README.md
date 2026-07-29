@@ -1,3 +1,7 @@
+
+swager ui = http://localhost:3000/api/docs
+
+
 # Inspections Module
 
 **Owner:** Member 4 (Mozahid) — Inspections, Student Stats, Teacher Training.
