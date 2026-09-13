@@ -41,7 +41,11 @@ export class InspectionsService {
   }
 
   async findAll(query: QueryInspectionDto, currentUser: any) {
-    const qb = this.inspectionRepo.createQueryBuilder('inspection');
+    const qb = this.inspectionRepo
+      .createQueryBuilder('inspection')
+      .leftJoinAndSelect('inspection.institution', 'institution')
+      .leftJoin('inspection.inspector', 'inspector')
+      .addSelect(['inspector.id', 'inspector.email']);
 
 
     if (currentUser.role.name === 'head_teacher') {
@@ -79,7 +83,7 @@ export class InspectionsService {
   }
 
   async findAllStudentStats() {
-    return this.studentStatRepo.find();
+    return this.studentStatRepo.find({ relations: { institution: true } });
   }
 
   async findOneStudentStat(id: string) {
