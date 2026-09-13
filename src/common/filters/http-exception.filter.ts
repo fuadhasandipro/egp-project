@@ -7,9 +7,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse<Response>();
     const status = exception instanceof HttpException ? exception.getStatus() : 500;
-    const message = exception instanceof HttpException
-      ? exception.getResponse()
-      : 'Internal server error';
+    const rawResponse = exception instanceof HttpException ? exception.getResponse() : 'Internal server error';
+    const message = typeof rawResponse === 'object' && rawResponse !== null && 'message' in (rawResponse as any)
+      ? (rawResponse as any).message
+      : rawResponse;
 
     res.status(status).json({
       success: false,
