@@ -34,7 +34,12 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = { sub: user.id, email: user.email, role: user.role };
+    const payload = {
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+      institutionId: user.institutionId,
+    };
 
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: '15m',
@@ -81,7 +86,12 @@ export class AuthService {
       throw new UnauthorizedException('Token rotation violation');
     }
 
-    const newPayload = { sub: user.id, email: user.email, role: user.role };
+    const newPayload = {
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+      institutionId: user.institutionId,
+    };
 
     const accessToken = this.jwtService.sign(newPayload, {
       expiresIn: '15m',
