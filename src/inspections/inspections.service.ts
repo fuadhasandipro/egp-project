@@ -12,6 +12,7 @@ import { QueryInspectionDto } from './dto/query-inspection.dto';
 import { CreateStudentStatDto } from './dto/create-student-stat.dto';
 import { UpdateStudentStatDto } from './dto/update-student-stat.dto';
 import { AssignTrainingDto } from './dto/assign-training.dto';
+import { CreateTrainingProgramDto } from './dto/create-training-program.dto';
 import { paginate } from '../common/helpers/paginate.helper';
 
 @Injectable()
@@ -105,6 +106,36 @@ export class InspectionsService {
     return this.studentStatRepo.remove(stat);
   }
 
+
+  async createTrainingProgram(dto: CreateTrainingProgramDto) {
+    const program = this.trainingProgramRepo.create(dto);
+    return this.trainingProgramRepo.save(program);
+  }
+
+  async findAllTrainingPrograms() {
+    return this.trainingProgramRepo.find({ order: { title: 'ASC' } });
+  }
+
+  async findTeachers() {
+    return this.userRepo
+      .createQueryBuilder('user')
+      .innerJoin('user.role', 'role')
+      .leftJoin('user.profile', 'profile')
+      .select(['user.id', 'user.email', 'profile.fullName'])
+      .where('role.name IN (:...names)', { names: ['teacher', 'head_teacher'] })
+      .orderBy('user.email', 'ASC')
+      .getMany();
+  }
+
+  async findTeacherTrainings() {
+    return this.teacherTrainingRepo
+      .createQueryBuilder('record')
+      .leftJoinAndSelect('record.training', 'training')
+      .leftJoin('record.user', 'user')
+      .addSelect(['user.id', 'user.email'])
+      .orderBy('record.completionDate', 'DESC')
+      .getMany();
+  }
 
   async assignTraining(dto: AssignTrainingDto) {
     const teacher = await this.userRepo.findOne({ where: { id: dto.userId } });
